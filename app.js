@@ -1,67 +1,50 @@
 const BASE_URL = "http://api.giphy.com/v1/gifs/search?";
 const API_KEY = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
-// let term ="q=hilarious&"
-let searchTerm =''
+
+let searchTerm = '';
 const searchForm = document.querySelector('#searchForm');
 const searchBox = document.querySelector("input[name='searchBox']");
 const searchButton = document.querySelector("#btn_search");
-const imgDisplay=document.querySelector('#gif')
-const results=document.querySelector('#results')
+// const imgDisplay = document.querySelector('#gif');
+const results = document.querySelector('#results');
+const images = document.querySelector('#images');
+const removeButton = document.querySelector('#btn_remove');
 
-searchForm.addEventListener("submit", function (e) {
+//get search term from user input
+searchButton.addEventListener("click", function (e) {
   e.preventDefault();
-   searchTerm = searchBox.value;
-    getGiphy(searchTerm);
+  searchTerm = searchBox.value;
+  getImageURL(searchTerm);
 
 
- });
+});
+//make API call to retrieve image url
+async function getImageURL(searchTerm) {
+  let url = `${BASE_URL}q=${searchTerm}&api_key=${API_KEY}`;
 
-async function getGiphy(searchTerm){
-  let url=`${BASE_URL}q=${searchTerm}&api_key=${API_KEY}`;
-  console.log(url)
-  let res = await axios.get(`${url}`)
-  // console.log(res)
-  let imageURL=res.data.data[0].images.original.url
-  // console.log('image',imageURL)
-  imgDisplay.src=imageURL
-  results.append(imgDisplay)
-  searchTerm=''
-  return res
+  let res = await axios.get(`${url}`);
+  let imageURL = res.data.data[0].images.original.url;
+  displayImage(imageURL);
+
+}
+
+// renders GIF onscreen
+function displayImage(imageURL) {
+  const imageGif=document.createElement('img')
+  imageGif.src = imageURL;
+    images.appendChild(imageGif);
+  searchTerm = ' ';
+  // imgDisplay.src = imageURL;
+  images.appendChild(imageGif);
+
 }
 
 
+removeButton.addEventListener('click', removeGif);
+function removeGif() {
+  results.remove();
 
-// // let  searchTerm=''
-
-// // searchForm.addEventListener("submit", function (e) {
-// //   e.preventDefault();
-// //   searchTerm = searchBox.value;
-// //   console.log(searchTerm);
-
-// //   getGiphy(searchTerm);
-
-// // });
-
-
-// async function getGiphy(str) {
-
-//   // let url = `"${BASE_URL}q=${str}&${API_KEY}"`;
-//   // console.log('url', url);
-//   // const res = await axios.get(url);
-//   // console.log('results', res);
-
-//     const res=await axios.get(`${BASE_URL}${str}${API_KEY}`)
-//    const image =res.data.data[0].images.url
-//    console.log(res)
-//
-//    imgDisplay.src=image
-//    const results=document.querySelector('#results')
-//    results.appendChild(imgDisplay)
-
-
-// }
-
-
+}
 
 
 
