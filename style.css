@@ -1,0 +1,38 @@
+body {
+
+    background-color: black;
+    display: flex; /* Create a flex container for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Use the viewport height for full screen height */
+    margin: 0; /* Remove default margin */
+  }
+
+
+
+h1{
+  color: white;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+#searchForm ,h1{
+display:flex;
+justify-content:  center;
+align-content:center
+
+}
+
+
+
+#btn_remove{
+  background-color:orangered;
+
+}
+
+#btn_search {
+  background-color:black;
+  color: white;;
+
+}
+
+
