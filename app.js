@@ -13,6 +13,7 @@ const removeButton = document.querySelector('#btn_remove');
 searchButton.addEventListener("click", function (e) {
   e.preventDefault();
   searchTerm = searchBox.value;
+  searchBox.value=''
   getImageURL(searchTerm);
 
 
