@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 //define global constants
 const BASE_URL = "http://api.giphy.com/v1/gifs/search?";
 const API_KEY = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
@@ -11,11 +11,13 @@ const searchBox = document.querySelector("input[name='searchBox']");
 const searchButton = document.querySelector("#btn_search");
 const images = document.querySelector('#images');
 const removeButton = document.querySelector('#btn_remove');
+let imageURL = '';
+
 
 //event handler to get search term from user input
 searchButton.addEventListener("click", function (e) {
   e.preventDefault();
- let searchTerm = searchBox.value;
+  let searchTerm = searchBox.value;
   searchBox.value = '';
   getImageURL(searchTerm);
 });
@@ -24,11 +26,17 @@ searchButton.addEventListener("click", function (e) {
 async function getImageURL(searchTerm) {
   let url = `${BASE_URL}q=${searchTerm}&api_key=${API_KEY}`;
   let res = await axios.get(`${url}`);
-  let imageURL = res.data.data[0].images.fixed_width_small.url;
 
-  //get random number
+//select random gif from result array
+  const selectedGiph = Math.floor(Math.random() * ((res.data.data.length) - 0 + 1) + 0);
 
-   displayImage(imageURL);
+  try {
+    imageURL = res.data.data[selectedGiph].images.downsized_medium.url;
+  } catch {
+    alert('GIF not found- please try again');
+  }
+
+  displayImage(imageURL);
 
 }
 
@@ -36,6 +44,7 @@ async function getImageURL(searchTerm) {
 function displayImage(imageURL) {
   const imageGif = document.createElement('img');
   imageGif.src = imageURL;
+
   images.appendChild(imageGif);
   let searchTerm = ' ';
   images.appendChild(imageGif);
