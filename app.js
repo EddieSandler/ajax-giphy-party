@@ -42,10 +42,13 @@ async function getImageURL(searchTerm) {
 
 // renders GIF onscreen
 function displayImage(imageURL) {
+  const newImage = document.createElement('div');
+  newImage.classList.add('display')
   const imageGif = document.createElement('img');
   imageGif.src = imageURL;
 
-  images.appendChild(imageGif);
+  newImage.appendChild(imageGif);
+  images.appendChild(newImage);
   let searchTerm = ' ';
   images.appendChild(imageGif);
 
@@ -57,7 +60,5 @@ function removeGif() {
   results.remove();
 
 }
-
-
 
 
